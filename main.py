@@ -1,6 +1,6 @@
 import pygame
 from sys import exit
-# import random
+import random
 import sys
 
 pygame.init()
@@ -40,10 +40,12 @@ class Bird(pygame.sprite.Sprite):
         self.image_index = 0
         self.vel = 0
         self.flap = False
+        self.alive = True
 
     def update(self, user_input):
         # animate bird
-        self.image_index += 1
+        if self.alive:
+            self.image_index += 1
         if self.image_index >= 30:
             self.image_index = 0
         self.image = bird_images[self.image_index // 10]
@@ -60,14 +62,27 @@ class Bird(pygame.sprite.Sprite):
         # # Rotation
         self.image = pygame.transform.rotate(self.image, self.vel * -7)
 
-        if (
-            user_input[pygame.K_SPACE]
-            and not self.flap
-            and self.rect.y > 0
-            and self.alive
-        ):
+        #user input
+        if user_input[pygame.K_SPACE] and not self.flap and self.rect > 0 and self.alive:
             self.flap = True
             self.vel = -7
+
+
+
+class Pipe(pygame.sprite.Sprite):
+    def __init__(self, x, y, position):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = x, y
+        self.enter, self.exit, self.passed = False, False, False
+        self.pipe_type = pipe_type
+
+    def update(self):
+        # Move Pipe
+        self.rect.x -= scroll_speed
+        if self.rect.x <= -win_width:
+            self.kill()
 
 
 class Ground(pygame.sprite.Sprite):
@@ -100,6 +115,10 @@ def main():
     bird = pygame.sprite.GroupSingle()
     bird.add(Bird())
 
+    # Setup Pipes
+    pipe_timer = 0
+    pipes = pygame.sprite.Group()
+
     x_pos_ground, y_pos_ground = 0, 520
     ground = pygame.sprite.Group()
     ground.add(Ground(x_pos_ground, y_pos_ground))
@@ -112,22 +131,41 @@ def main():
     # Reset Frame
     window.fill((0, 0, 0))
 
+    # input from user
     user_input = pygame.key.get_pressed()
 
     # Draw Background
     window.blit(skyline_image, (0, 0))
 
     # Spawn Ground
-    if len(ground) < 2:
+    if len(ground) <= 2:
         ground.add(Ground(win_width, y_pos_ground))
 
     # Draw Pipes, Ground and Bird
+    pipes.draw(window)
     ground.draw(window)
     bird.draw(window)
 
+    if pipe_timer <= 0 and bird.sprite.alive:
+            x_top, x_bottom = 550, 550
+            y_top = random.randint(-600, -480)
+            y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
+            pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
+            pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+            pipe_timer = random.randint(180, 250)
+            pipe_timer -= 1
+
+            clock.tick(60)
+            pygame.display.update()
+
+
     # Update Display
+    pygame.display.update()
+    pipes.update
     ground.update
     bird.update(user_input)
+
+
 
     clock.tick(60)
     pygame.display.update()
