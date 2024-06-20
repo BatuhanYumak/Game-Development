@@ -1,6 +1,7 @@
 import pygame
 from sys import exit
 import random
+from win import show_win_screen
 
 # Initialize pygame and clock for controlling the frame rate
 pygame.init()
@@ -24,9 +25,10 @@ top_pipe_image = pygame.image.load("assets/pipe_top.png")
 bottom_pipe_image = pygame.image.load("assets/pipe_bottom.png")
 game_over_image = pygame.image.load("assets/game_over.png")
 start_image = pygame.image.load("assets/start.png")
+win_image = pygame.image.load("assets/win.png")  # Voeg een win afbeelding toe
 
 # Game settings
-scroll_speed = 1
+scroll_speed = 2
 bird_start_position = (100, 250)
 score = 0
 font = pygame.font.SysFont("Segoe", 26)
@@ -179,6 +181,10 @@ def main():
                 if user_input[pygame.K_r]:
                     score = 0
                     break
+
+        # Check for win condition
+        if score >= 50:
+            show_win_screen(window, win_image, win_width, win_height)
 
         # Spawn new pipes periodically
         if pipe_timer <= 0 and bird.sprite.alive:
