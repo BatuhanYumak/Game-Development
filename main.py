@@ -18,6 +18,8 @@ bird_images = [
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
+
+logo_image = pygame.image.load("assets/logo.png")
 skyline_image = pygame.image.load("assets/background.png")
 ground_image = pygame.image.load("assets/ground.png")
 top_pipe_image = pygame.image.load("assets/pipe_top.png")
@@ -157,6 +159,10 @@ def main():
         pipes.draw(window)
         ground.draw(window)
         bird.draw(window)
+
+        # Draw logo
+
+        window.blit(logo_image, (win_width // 0.5 - logo_image.get_width() // 0.5, 20))
 
         # Display the score
         score_text = font.render("Score: " + str(score), True, pygame.Color(255, 255, 255))
