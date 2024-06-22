@@ -12,14 +12,15 @@ win_width = 551
 # Create game window
 window = pygame.display.set_mode((win_width, win_height))
 
+logo_image = pygame.display.set_mode((win_width, win_height))
+
 # Load images for game elements
 bird_images = [
     pygame.image.load("assets/bird_down.png"),
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
-
-logo_image = pygame.image.load("assets/logo.png")
+logo_image = pygame.image.load("assets/background.png")
 skyline_image = pygame.image.load("assets/background.png")
 ground_image = pygame.image.load("assets/ground.png")
 top_pipe_image = pygame.image.load("assets/pipe_top.png")
@@ -160,17 +161,16 @@ def main():
         ground.draw(window)
         bird.draw(window)
 
-        # Draw logo
-
-        window.blit(logo_image, (win_width // 0.5 - logo_image.get_width() // 0.5, 20))
-
         # Display the score
         score_text = font.render("Score: " + str(score), True, pygame.Color(255, 255, 255))
         window.blit(score_text, (20, 20))
 
+        window.blit(logo_image, (20,20))
+
         # Update pipes, ground, and bird if bird is alive
         if bird.sprite.alive:
-            pipes.update()
+
+            pipes.update() 
             ground.update()
         bird.update(user_input)
 
