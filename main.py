@@ -6,13 +6,15 @@ import random
 pygame.init()
 clock = pygame.time.Clock()
 
+
+screen = pygame.display.set_mode((800, 600))
+
+
 # Window dimensions
 win_height = 720
 win_width = 551
 # Create game window
 window = pygame.display.set_mode((win_width, win_height))
-
-logo_image = pygame.display.set_mode((win_width, win_height))
 
 # Load images for game elements
 bird_images = [
@@ -20,7 +22,7 @@ bird_images = [
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
-logo_image = pygame.image.load("assets/background.png")
+logo_image = pygame.image.load("assets/logo.png")
 skyline_image = pygame.image.load("assets/background.png")
 ground_image = pygame.image.load("assets/ground.png")
 top_pipe_image = pygame.image.load("assets/pipe_top.png")
@@ -146,11 +148,17 @@ def main():
         # Clear screen for next frame
         window.fill((0, 0, 0))
 
+        screen.fill((0, 0, 0))
+
         # Get user input
         user_input = pygame.key.get_pressed()
 
         # Draw background
         window.blit(skyline_image, (0, 0))
+
+        # Draw logo
+
+        screen.blit(logo_image, (10,10))
 
         # Add ground sections as needed
         if len(ground) <= 2:
@@ -165,12 +173,9 @@ def main():
         score_text = font.render("Score: " + str(score), True, pygame.Color(255, 255, 255))
         window.blit(score_text, (20, 20))
 
-        window.blit(logo_image, (20,20))
-
         # Update pipes, ground, and bird if bird is alive
         if bird.sprite.alive:
-
-            pipes.update() 
+            pipes.update()
             ground.update()
         bird.update(user_input)
 
@@ -198,7 +203,8 @@ def main():
 
         # Control the frame rate
         clock.tick(60)
-        pygame.display.update()
+        # pygame.display.update()
+        pygame.display.flip()
 
 # Menu loop to start the game
 def menu():
