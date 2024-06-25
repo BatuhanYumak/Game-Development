@@ -1,59 +1,34 @@
 # Overdracht Flappy Bird Project
 
+Beste collega,
+
+Hierbij ontvang je de broncode van het Flappy Bird spel, ontwikkeld door Batuhan Yumak. Om verder te gaan met de ontwikkeling van dit project, volgen hier belangrijke instructies en informatie:
+
 ## Project Overzicht
-Dit project is een eenvoudige versie van het spel Flappy Bird, ontwikkeld met behulp van Python en Pygame.
 
-## Vereisten
+Dit project is een eenvoudige implementatie van het klassieke spel Flappy Bird, gemaakt met Python en Pygame. Het spel draait om een vogel die obstakels moet ontwijken door op de spatiebalk te drukken of te klikken.
 
-### Hardware
-- **Computer**: MacBook Air 2020 M1
-- **Processor**: M1
-- **RAM**: 8 GB
-- **Opslag**: 256 GB
-- **GPU**: Apple-designed integrated graphics (7–8 cores)
+## Gamefunctionaliteiten
 
-### Software
-- **Besturingssysteem**: macOS
-- **Game Engine**: Pygame versie 2.5.2
-- **Versiebeheer**: Git met repository op GitHub
-- **IDE**: Visual Studio Code
+### Spelmechanismen
+- De speler bestuurt een vogel die continu omhoog beweegt en daalt op basis van spatiebalk of touchscreen input.
+- Obstakels in de vorm van pijpen bewegen van rechts naar links over het scherm. Het doel is om de vogel tussen de openingen van de pijpen door te manoeuvreren zonder ze te raken.
 
-## Installatie
-1. **Python installeren**: Zorg dat Python geïnstalleerd is (minimaal versie 3.7).
-2. **Virtuele omgeving maken**:
-    ```bash
-    python3 -m env venv
-    ```
-3. **Virtuele omgeving activeren**:
-    - macOS/Linux:
-        ```bash
-        source env/bin/activate
-        ```
-    - Windows:
-        ```bash
-        .\venv\Scripts\activate
-        ```
-4. **Benodigde pakketten installeren**:
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Puntentelling en Prestaties
+- De score van de speler wordt berekend op basis van hoe ver ze zijn gekomen door de openingen van de pijpen te passeren.
+- Een levenssysteem beperkt het aantal keren dat de speler kan crashen tegen een pijp voordat het spel eindigt.
+---
 
-## Projectstructuur
-- **main.py**: Hoofdbestand van het spel.
-- **assets/**: Map met afbeeldingen en geluiden.
-- **documents/**: Map met documentatie en logboeken.
-- **venv/**: Virtuele omgeving map.
-- **requirements.txt**: Lijst met benodigde Python-pakketten.
+## Gameplay Aanpassingen
 
-## Workflow
-- **Versiebeheer**:
-    - Dagelijks committen en pushen naar GitHub.
-    - Gebruik duidelijke commitberichten.
-- **Documentatie**:
-    - Voeg commentaar toe in de code voor duidelijkheid.
-    - Houd een dagelijks logboek bij in de `documents/`-map.
+Indien gewenst kunnen de volgende aspecten van het spel worden aangepast:
 
-## Uitvoeren van het spel
-Na installatie en activering van de virtuele omgeving, start het spel met:
-```bash
-python main.py
+- **Snelheid van de vogel**: Pas de snelheid aan voor een sneller of trager speltempo.
+- **Afstand tussen pijpen**: Verander de afstand tussen de pijpen om de moeilijkheidsgraad aan te passen.
+- **Visuele elementen**: Pas grafische aspecten zoals kleuren en achtergronden aan om de visuele stijl van het spel te veranderen.
+
+Als je nog vragen hebt of hulp nodig hebt bij het voortzetten van de ontwikkeling van deze game, aarzel dan niet om contact met me op te nemen.
+
+Met vriendelijke groet,
+
+Batuhan Yumak
