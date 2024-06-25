@@ -26,7 +26,7 @@ Welkom bij het Flappy Bird project! Dit is een eenvoudige versie van het populai
 - **main.py**: Hoofdbestand van het spel.
 - **assets/**: Map met afbeeldingen
 - **documents/**: Map met documentatie en logboeken.
-- **venv/**: Virtuele omgeving map.
+- **env/**: Virtuele omgeving map.
 - **requirements.txt**: Lijst met benodigde Python-pakketten.
 
 ## Spel Starten

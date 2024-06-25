@@ -59,6 +59,7 @@ Datum: 19-06-2024
 
 - Taken: 
     - Restart optie toevoegen aan het spel na dat je hebt verloren
+    - Game laten testen aan mede studenten
 
 ## Dag 8: Winnen toevoegen aan het spel
 
@@ -76,7 +77,21 @@ Datum: 20-06-2024
     - Voorbereiden overdrachtsdocumenten
 
 
+## Testen
 
+### Eerste test
 
+- Datum: 19-06-2024
+- Tijd: 14:12
+- Tester: Joel Boafo
 
+    - Conclusies
+    - i. Zwaartekracht: Vogel valt te snel & gaat langzaam omhoog
+    - ii. Snelheid: Spel voelt te sloom 
+
+- Aanpassingen:
+
+    - i. (WIP) zodat de vogel niet te snel valt en niet langzaam omhoog gaat
+
+    - ii. (WIP) Snelheid van het moet wat sneller
 
