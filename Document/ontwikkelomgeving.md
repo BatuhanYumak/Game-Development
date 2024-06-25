@@ -2,41 +2,45 @@
 
 ## Hardware Specs
 
-- Computer:
-    - Merk: MacBook Air
-    - Model: MacBook Air 2020 M1
-    - Processor: M1
-    - RAM: 8 GB
-    - Opslag: 256 GB
-    - GPU: Apple-designed integrated graphics (7–8 cores)
+- **Computer**:
+    - **Merk**: MacBook Air
+    - **Model**: MacBook Air 2020 M1
+    - **Processor**: M1
+    - **RAM**: 8 GB
+    - **Opslag**: 256 GB
+    - **GPU**: Apple-designed integrated graphics (7–8 cores)
 
-- Software 
-- Besturingssysteem:
+## Software
+
+- **Besturingssysteem**:
     - macOS
 
-- GameEngine
+- **Game Engine**:
     - Pygame (Python)
-    - Versie: 2.5.2
+    - **Versie**: 2.5.2
 
-- Versiebeheer:
+- **Versiebeheer**:
     - Git
-    - Repository Hosting: GitHub 
+    - **Repository Hosting**: GitHub 
 
-- IDE:
-    - Editor: Visual Studio Code
-    - Virtuele omgeving
+- **IDE**:
+    - Visual Studio Code
+    - **Virtuele omgeving**: Python venv
 
-# Workflow & Best Practices:
-- Versiebeheer:
-    - Dagelijks committen en pushen van wijzigingen.
-    - Gebruik van duidelijke commitberichten.
-    - Hoofdrepository op GitHub.
+## Workflow & Best Practices
 
-# Documentatie & Commentaar:
+### Versiebeheer
+- Dagelijks committen en pushen van wijzigingen.
+- Gebruik van duidelijke commitberichten.
+- Hoofdrepository op GitHub.
+
+### Documentatie & Commentaar
 - Gedetailleerde commentaarregels in de code voor duidelijkheid.
 - Bijhouden van een dagelijks logboek.
 
-# Structuur 
+## Structuur 
+
 - Alle afbeeldingen zijn georganiseerd in de `assets`-map.
 - Gebruik de virtuele omgeving om je benodigde pakketten te installeren.
 - In de `documents`-map kun je alle documenten vinden.
+
