@@ -1,6 +1,36 @@
-# Flappy Bird
+# Flappy Bird Project
 
-Welkom bij Game Development 1. In deze module gaan we een game maken in Unity. De game die we gaan maken is Flappy Bird. Flappy Bird is een game waarbij je een vogel bestuurt die door een doolhof van buizen moet vliegen. Het doel van het spel is om zo ver mogelijk te komen zonder de buizen te raken.
+Welkom bij het Flappy Bird project! Dit is een eenvoudige versie van het populaire spel Flappy Bird, gemaakt met Python en Pygame.
 
 
+## Installatie
 
+1. **Python installeren**: Zorg dat Python geïnstalleerd is.
+
+2. **Virtuele omgeving activeren**:
+    - macOS/Linux:
+        ```bash
+        source env/bin/activate
+        ```
+    - Windows:
+        ```bash
+        .env\Scripts\activate
+        ```
+2. **Benodigde pakketten installeren**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Projectstructuur
+
+- **main.py**: Hoofdbestand van het spel.
+- **assets/**: Map met afbeeldingen
+- **documents/**: Map met documentatie en logboeken.
+- **venv/**: Virtuele omgeving map.
+- **requirements.txt**: Lijst met benodigde Python-pakketten.
+
+## Spel Starten
+
+Na installatie en activering van de virtuele omgeving, start het spel met:
+```bash
+python main.py
