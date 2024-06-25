@@ -6,6 +6,7 @@ import random
 pygame.init()
 clock = pygame.time.Clock()
 
+
 # Window dimensions
 win_height = 720
 win_width = 551
@@ -18,12 +19,17 @@ bird_images = [
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
+logo_image = pygame.image.load("assets/logo.png")
 skyline_image = pygame.image.load("assets/background.png")
 ground_image = pygame.image.load("assets/ground.png")
 top_pipe_image = pygame.image.load("assets/pipe_top.png")
 bottom_pipe_image = pygame.image.load("assets/pipe_bottom.png")
 game_over_image = pygame.image.load("assets/game_over.png")
 start_image = pygame.image.load("assets/start.png")
+
+logo_widht = 100
+logo_height = 100
+logo_img = pygame.transform.scale(logo_image, (logo_widht, logo_height))
 
 # Game settings
 scroll_speed = 1
@@ -149,6 +155,11 @@ def main():
         # Draw background
         window.blit(skyline_image, (0, 0))
 
+        #Draw logo
+        logo_x = 40
+        logo_y = 10
+        window.blit(logo_img, (logo_y, logo_x))
+
         # Add ground sections as needed
         if len(ground) <= 2:
             ground.add(Ground(win_width, y_pos_ground))
@@ -192,7 +203,8 @@ def main():
 
         # Control the frame rate
         clock.tick(60)
-        pygame.display.update()
+        # pygame.display.update()
+        pygame.display.flip()
 
 # Menu loop to start the game
 def menu():
