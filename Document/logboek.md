@@ -93,5 +93,4 @@ Datum: 20-06-2024
 
     - i. (WIP) zodat de vogel niet te snel valt en niet langzaam omhoog gaat
 
-    - ii. (WIP) Snelheid van het moet wat sneller
-
+    - ii. (WIP) Snelheid van het spel moet wat sneller
