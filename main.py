@@ -7,9 +7,6 @@ pygame.init()
 clock = pygame.time.Clock()
 
 
-screen = pygame.display.set_mode((800, 600))
-
-
 # Window dimensions
 win_height = 720
 win_width = 551
@@ -29,6 +26,10 @@ top_pipe_image = pygame.image.load("assets/pipe_top.png")
 bottom_pipe_image = pygame.image.load("assets/pipe_bottom.png")
 game_over_image = pygame.image.load("assets/game_over.png")
 start_image = pygame.image.load("assets/start.png")
+
+logo_widht = 100
+logo_height = 100
+logo_img = pygame.transform.scale(logo_image, (logo_widht, logo_height))
 
 # Game settings
 scroll_speed = 1
@@ -148,17 +149,16 @@ def main():
         # Clear screen for next frame
         window.fill((0, 0, 0))
 
-        screen.fill((0, 0, 0))
-
         # Get user input
         user_input = pygame.key.get_pressed()
 
         # Draw background
         window.blit(skyline_image, (0, 0))
 
-        # Draw logo
-
-        screen.blit(logo_image, (10,10))
+        #Draw logo
+        logo_x = 40
+        logo_y = 10
+        window.blit(logo_img, (logo_y, logo_x))
 
         # Add ground sections as needed
         if len(ground) <= 2:
