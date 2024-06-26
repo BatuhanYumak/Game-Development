@@ -42,10 +42,14 @@ font = pygame.font.SysFont("Segoe", 26)
 game_stopped = True
 
 # Bird class representing the player's character
+
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = bird_images[0]
+        self.original_image = (
+            self.image
+        )  # Store the original image for rotation purposes
         self.rect = self.image.get_rect()
         self.rect.center = bird_start_position
         self.image_index = 0
@@ -54,6 +58,8 @@ class Bird(pygame.sprite.Sprite):
         self.alive = True
 
     def update(self, user_input):
+        global score
+
         # Animate Bird by cycling through images
         if self.alive:
             self.image_index += 1
@@ -62,12 +68,11 @@ class Bird(pygame.sprite.Sprite):
 
         # Change bird color after reaching 5 points
         if score >= 5:
-            self.image = gele_vogel
+            self.original_image = gele_vogel
         elif score >= 10:
-            self.image = groene_vogel
-
+            self.original_image = groene_vogel
         else:
-            self.image = bird_images[self.image_index // 10]
+            self.original_image = bird_images[self.image_index // 10]
 
         # Apply gravity and check for flap action
         self.vel += 0.5
@@ -79,12 +84,16 @@ class Bird(pygame.sprite.Sprite):
             self.flap = False
 
         # Rotate Bird based on velocity
-        self.image = pygame.transform.rotate(self.image, self.vel * -7)
+        self.image = pygame.transform.rotate(self.original_image, self.vel * -7)
 
         # Handle user input for bird flap
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0 and self.alive:
             self.flap = True
             self.vel = -7
+
+        # Recalculate the hitbox and make it smaller
+        self.rect = self.image.get_rect(center=self.rect.center)
+        self.rect.inflate_ip(-10, -10)
 
 # Pipe class for the obstacles
 class Pipe(pygame.sprite.Sprite):
