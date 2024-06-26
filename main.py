@@ -18,6 +18,9 @@ bird_images = [
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
+
+rip_image = pygame.image.load("assets/rip.png")
+blauwe_vogel = pygame.image.load("assets/blauwe_vogel.png")
 groene_vogel = pygame.image.load("assets/groene_vogel.png")
 gele_vogel = pygame.image.load("assets/gele_vogel.png")
 logo_image = pygame.image.load("assets/logo_zonder_tekst.png")
@@ -33,6 +36,16 @@ logo_height = 100
 logo_img = pygame.transform.scale(logo_image, (logo_width, logo_height))
 gele_vogel = pygame.transform.scale(gele_vogel, (60, 60))
 groene_vogel = pygame.transform.scale(groene_vogel, (45, 45))
+rip_image = pygame.transform.scale(rip_image, (60, 60))
+
+# background sound
+pygame.mixer.music.load("assets/achtergrond.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+
+# point sound
+point_sound = pygame.mixer.Sound("assets/point.mp3")
+
 
 # Game settings
 scroll_speed = 1
@@ -63,9 +76,10 @@ class Bird(pygame.sprite.Sprite):
         # Change bird color after reaching 5 points
         if score >= 5:
             self.image = gele_vogel
-        elif score >= 10:
-            self.image = groene_vogel
-
+            if score >= 10:
+                self.image = groene_vogel
+                if score >= 15:
+                    self.image = blauwe_vogel
         else:
             self.image = bird_images[self.image_index // 10]
 
@@ -200,6 +214,13 @@ def main():
             if collision_ground:
                 # Display game over screen
                 window.blit(game_over_image, (win_width // 2 - game_over_image.get_width() // 2, win_height // 2 - game_over_image.get_height() // 2))
+                window.blit(
+                    rip_image,
+                    (
+                        win_width // 2 - rip_image.get_width() // 2,
+                        win_height // 2 - game_over_image.get_height() // 2 + -100,
+                    ),
+                )
                 if user_input[pygame.K_r]:
                     score = 0
                     break
@@ -208,6 +229,7 @@ def main():
         collision_logos = pygame.sprite.spritecollide(bird.sprites()[0], logos, True)
         if collision_logos:
             score += 1
+            point_sound.play()
 
         # Spawn new pipes and logos periodically
         if pipe_timer <= 0 and bird.sprite.alive:
