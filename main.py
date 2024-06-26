@@ -6,7 +6,6 @@ import random
 pygame.init()
 clock = pygame.time.Clock()
 
-
 # Window dimensions
 win_height = 720
 win_width = 551
@@ -19,7 +18,9 @@ bird_images = [
     pygame.image.load("assets/bird_mid.png"),
     pygame.image.load("assets/bird_up.png"),
 ]
-logo_image = pygame.image.load("assets/logo.png")
+groene_vogel = pygame.image.load("assets/groene_vogel.png")
+gele_vogel = pygame.image.load("assets/gele_vogel.png")
+logo_image = pygame.image.load("assets/logo_zonder_tekst.png")
 skyline_image = pygame.image.load("assets/background.png")
 ground_image = pygame.image.load("assets/ground.png")
 top_pipe_image = pygame.image.load("assets/pipe_top.png")
@@ -27,9 +28,11 @@ bottom_pipe_image = pygame.image.load("assets/pipe_bottom.png")
 game_over_image = pygame.image.load("assets/game_over.png")
 start_image = pygame.image.load("assets/start.png")
 
-logo_widht = 100
+logo_width = 100
 logo_height = 100
-logo_img = pygame.transform.scale(logo_image, (logo_widht, logo_height))
+logo_img = pygame.transform.scale(logo_image, (logo_width, logo_height))
+gele_vogel = pygame.transform.scale(gele_vogel, (60, 60))
+groene_vogel = pygame.transform.scale(groene_vogel, (45, 45))
 
 # Game settings
 scroll_speed = 1
@@ -56,7 +59,15 @@ class Bird(pygame.sprite.Sprite):
             self.image_index += 1
         if self.image_index >= 30:
             self.image_index = 0
-        self.image = bird_images[self.image_index // 10]
+
+        # Change bird color after reaching 5 points
+        if score >= 5:
+            self.image = gele_vogel
+        elif score >= 10:
+            self.image = groene_vogel
+
+        else:
+            self.image = bird_images[self.image_index // 10]
 
         # Apply gravity and check for flap action
         self.vel += 0.5
@@ -82,7 +93,6 @@ class Pipe(pygame.sprite.Sprite):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
-        self.enter, self.exit, self.passed = False, False, False
         self.pipe_type = pipe_type
 
     def update(self):
@@ -91,16 +101,21 @@ class Pipe(pygame.sprite.Sprite):
         if self.rect.x <= -win_width:
             self.kill()
 
-        # Update score if bird passes the pipe
-        global score
-        if self.pipe_type == "bottom":
-            if bird_start_position[0] > self.rect.topleft[0] and not self.passed:
-                self.enter = True
-            if bird_start_position[0] > self.rect.topright[0] and not self.passed:
-                self.exit = True
-            if self.enter and self.exit and not self.passed:
-                self.passed = True
-                score += 1
+
+# Logo class for the collectible items
+class Logo(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = logo_img
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = x, y
+
+    def update(self):
+        # Move logo leftwards
+        self.rect.x -= scroll_speed
+        if self.rect.x <= -win_width:
+            self.kill()
+
 
 # Ground class for the scrolling ground
 class Ground(pygame.sprite.Sprite):
@@ -135,6 +150,7 @@ def main():
     # Pipe setup
     pipe_timer = 0
     pipes = pygame.sprite.Group()
+    logos = pygame.sprite.Group()
 
     # Initial ground setup
     x_pos_ground, y_pos_ground = 0, 520
@@ -155,17 +171,13 @@ def main():
         # Draw background
         window.blit(skyline_image, (0, 0))
 
-        #Draw logo
-        logo_x = 40
-        logo_y = 10
-        window.blit(logo_img, (logo_y, logo_x))
-
         # Add ground sections as needed
         if len(ground) <= 2:
             ground.add(Ground(win_width, y_pos_ground))
 
-        # Draw pipes, ground, and bird
+        # Draw pipes, logos, ground, and bird
         pipes.draw(window)
+        logos.draw(window)
         ground.draw(window)
         bird.draw(window)
 
@@ -173,13 +185,14 @@ def main():
         score_text = font.render("Score: " + str(score), True, pygame.Color(255, 255, 255))
         window.blit(score_text, (20, 20))
 
-        # Update pipes, ground, and bird if bird is alive
+        # Update pipes, logos, ground, and bird if bird is alive
         if bird.sprite.alive:
             pipes.update()
+            logos.update()
             ground.update()
         bird.update(user_input)
 
-        # Check for collisions
+        # Check for collisions with pipes and ground
         collision_pipes = pygame.sprite.spritecollide(bird.sprites()[0], pipes, False)
         collision_ground = pygame.sprite.spritecollide(bird.sprites()[0], ground, False)
         if collision_pipes or collision_ground:
@@ -191,19 +204,30 @@ def main():
                     score = 0
                     break
 
-        # Spawn new pipes periodically
+        # Check for collisions with logos
+        collision_logos = pygame.sprite.spritecollide(bird.sprites()[0], logos, True)
+        if collision_logos:
+            score += 1
+
+        # Spawn new pipes and logos periodically
         if pipe_timer <= 0 and bird.sprite.alive:
             x_top, x_bottom = 550, 550
             y_top = random.randint(-600, -480)
             y_bottom = y_top + random.randint(90, 130) + bottom_pipe_image.get_height()
             pipes.add(Pipe(x_top, y_top, top_pipe_image, 'top'))
             pipes.add(Pipe(x_bottom, y_bottom, bottom_pipe_image, 'bottom'))
+            logo_y = (
+                y_top
+                + top_pipe_image.get_height()
+                + (y_bottom - y_top - top_pipe_image.get_height()) // 2
+                - logo_height // 2
+            )
+            logos.add(Logo(x_bottom, logo_y))
             pipe_timer = random.randint(180, 250)
         pipe_timer -= 1
 
         # Control the frame rate
         clock.tick(60)
-        # pygame.display.update()
         pygame.display.flip()
 
 # Menu loop to start the game
